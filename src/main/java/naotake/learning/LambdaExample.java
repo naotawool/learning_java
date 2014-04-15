@@ -1,6 +1,5 @@
 package naotake.learning;
 
-import naotake.learning.LambdaExample.Hello;
 
 public class LambdaExample {
 

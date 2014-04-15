@@ -16,6 +16,7 @@
         <org.mockito.version>1.9.5</org.mockito.version>
         <org.easymock.version>3.1</org.easymock.version>
         <slf4j.version>1.6.1</slf4j.version>
+        <org.junit.extention>1.0</org.junit.extention>
     </properties>
     <dependencies>
         <dependency>
@@ -44,6 +45,12 @@
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
             <version>${org.easymock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.extention</groupId>
+            <artifactId>junit-extention</artifactId>
+            <version>${org.junit.extention}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
