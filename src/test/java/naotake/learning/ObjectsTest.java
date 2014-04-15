@@ -1,4 +1,4 @@
-package naotake.learning.guava;
+package naotake.learning;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.core.Is.is;
@@ -9,7 +9,7 @@ import java.util.Objects;
 import org.junit.Test;
 
 /**
- * {@link Objects}に対するテストクラス。
+ * Java の{@link Objects}に対するテストクラス。
  * 
  * @author naotake
  */
