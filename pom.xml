@@ -8,7 +8,7 @@
     <name>learning-java</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <project.build.jdk.version>1.7</project.build.jdk.version>
+        <project.build.jdk.version>1.8</project.build.jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <com.google.guava.version>16.0.1</com.google.guava.version>
