@@ -161,7 +161,7 @@ public class StreamExample {
     }
 
     private String distinctPrefsOnStream(List<Student> students) {
-        List<String> prefs = students.stream().map(s -> s.getPref()).distinct()
+        List<String> prefs = students.stream().map(Student::getPref).distinct()
                 .collect(Collectors.toList());
         prefs.sort((String o1, String o2) -> o2.compareTo(o1));
         return prefs.stream().collect(Collectors.joining(":"));
