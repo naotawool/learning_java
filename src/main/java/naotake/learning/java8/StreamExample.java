@@ -167,6 +167,70 @@ public class StreamExample {
         return prefs.stream().collect(Collectors.joining(":"));
     }
 
+    public long countUnderScore(List<Student> students, int targetScore) {
+        if (mode == Mode.JAVA_7) {
+            return countUnderScoreOnForeach(students, targetScore);
+        } else {
+            return countUnderScoreOnStream(students, targetScore);
+        }
+    }
+
+    private long countUnderScoreOnForeach(List<Student> students, int targetScore) {
+        long count = 0;
+        for (Student student : students) {
+            if (student.getScore() < targetScore) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private long countUnderScoreOnStream(List<Student> students, int targetScore) {
+        return students.stream().map(s -> s.getScore()).filter(s -> (s < targetScore)).count();
+    }
+
+    public boolean hasOverScore(List<Student> students, int targetScore) {
+        if (mode == Mode.JAVA_7) {
+            return hasOverScoreOnForeach(students, targetScore);
+        } else {
+            return hasOverScoreOnStream(students, targetScore);
+        }
+    }
+
+    private boolean hasOverScoreOnForeach(List<Student> students, int targetScore) {
+        for (Student student : students) {
+            if (student.getScore() > targetScore) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean hasOverScoreOnStream(List<Student> students, int targetScore) {
+        return students.stream().map(s -> s.getScore()).anyMatch(score -> (score > targetScore));
+    }
+
+    public boolean isNotExistsName(List<Student> students, String targetName) {
+        if (mode == Mode.JAVA_7) {
+            return isNotExistsNameOnForeach(students, targetName);
+        } else {
+            return isNotExistsNameOnStream(students, targetName);
+        }
+    }
+
+    private boolean isNotExistsNameOnForeach(List<Student> students, String targetName) {
+        for (Student student : students) {
+            if (student.getName().equals(targetName)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isNotExistsNameOnStream(List<Student> students, String targetName) {
+        return students.stream().map(s -> s.getName()).noneMatch(name -> name.equals(targetName));
+    }
+
     public enum Mode {
         JAVA_8, JAVA_7;
     }

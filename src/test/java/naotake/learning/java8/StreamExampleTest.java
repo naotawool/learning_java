@@ -79,6 +79,24 @@ public class StreamExampleTest {
             String actual = testee.distinctPrefs(newStudents());
             assertThat(actual, is("3_大阪府:2_東京都:1_北海道"));
         }
+
+        @Test
+        public void 指定したスコアを下回る件数を取得できること() {
+            assertThat(testee.countUnderScore(newStudents(), 200), is(3L));
+            assertThat(testee.countUnderScore(newStudents(), 1), is(0L));
+        }
+
+        @Test
+        public void 指定したスコアを上回るスコアが存在するかどうかを取得できること() {
+            assertThat(testee.hasOverScore(newStudents(), 300), is(true));
+            assertThat(testee.hasOverScore(newStudents(), 310), is(false));
+        }
+
+        @Test
+        public void 指定した名前の生徒が存在しないかどうかを取得できること() {
+            assertThat(testee.isNotExistsName(newStudents(), "Jack"), is(false));
+            assertThat(testee.isNotExistsName(newStudents(), "Hoge"), is(true));
+        }
     }
 
     public static class Java8の場合 {
@@ -135,6 +153,24 @@ public class StreamExampleTest {
         public void stream_を使って都道府県の一覧を降順で重複無く取得できること() {
             String actual = testee.distinctPrefs(newStudents());
             assertThat(actual, is("3_大阪府:2_東京都:1_北海道"));
+        }
+
+        @Test
+        public void stream_を使って指定したスコアを下回る件数を取得できること() {
+            assertThat(testee.countUnderScore(newStudents(), 200), is(3L));
+            assertThat(testee.countUnderScore(newStudents(), 1), is(0L));
+        }
+
+        @Test
+        public void stream_を使って指定したスコアを上回るスコアが存在するかどうかを取得できること() {
+            assertThat(testee.hasOverScore(newStudents(), 300), is(true));
+            assertThat(testee.hasOverScore(newStudents(), 310), is(false));
+        }
+
+        @Test
+        public void stream_を使って指定した名前の生徒が存在しないかどうかを取得できること() {
+            assertThat(testee.isNotExistsName(newStudents(), "Jack"), is(false));
+            assertThat(testee.isNotExistsName(newStudents(), "Hoge"), is(true));
         }
     }
 
