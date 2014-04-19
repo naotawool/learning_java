@@ -3,10 +3,13 @@ package naotake.learning.java8;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
@@ -229,6 +232,53 @@ public class StreamExample {
 
     private boolean isNotExistsNameOnStream(List<Student> students, String targetName) {
         return students.stream().map(s -> s.getName()).noneMatch(name -> name.equals(targetName));
+    }
+
+    public List<String> findNameByOverScore(List<Student> students, int targetScore) {
+        if (mode == Mode.JAVA_7) {
+            return findNameByOverScoreOnForeach(students, targetScore);
+        } else {
+            return findNameByOverScoreOnStream(students, targetScore);
+        }
+    }
+
+    private List<String> findNameByOverScoreOnForeach(List<Student> students, int targetScore) {
+        List<String> names = new ArrayList<>();
+        for (Student student : students) {
+            if (student.getScore() > targetScore) {
+                names.add(student.getName());
+            }
+        }
+        Collections.sort(names);
+        return names;
+    }
+
+    private List<String> findNameByOverScoreOnStream(List<Student> students, int targetScore) {
+        return students.stream().filter(s -> (s.getScore() > targetScore))
+                .sorted(Comparator.comparing((Function<Student, String>) Student::getName))
+                .map(Student::getName).collect(Collectors.toList());
+    }
+
+    public Map<String, Long> countStudentByPref(List<Student> students) {
+        if (mode == Mode.JAVA_7) {
+            return countStudentByPrefOnForeach(students);
+        } else {
+            return countStudentByPrefOnStream(students);
+        }
+    }
+
+    private Map<String, Long> countStudentByPrefOnForeach(List<Student> students) {
+        Map<String, Long> counter = new HashMap<>();
+        for (Student student : students) {
+            Long count = counter.getOrDefault(student.getPref(), 0L);
+            counter.put(student.getPref(), (count + 1));
+        }
+        return counter;
+    }
+
+    private Map<String, Long> countStudentByPrefOnStream(List<Student> students) {
+        return students.stream().collect(
+                Collectors.groupingBy(s -> s.getPref(), Collectors.counting()));
     }
 
     public enum Mode {
