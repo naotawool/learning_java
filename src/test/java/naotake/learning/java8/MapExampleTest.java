@@ -10,6 +10,11 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Java8で{@link java.util.Map}に追加された新たなメソッドに対するテストクラス。
+ * 
+ * @author naotake
+ */
 public class MapExampleTest {
 
     private Map<String, Student> students;

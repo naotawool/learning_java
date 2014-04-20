@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * {@link ListExample}に対するテストクラス。
+ * Java8で{@link java.util.List}に追加された新たなメソッドに対するテストクラス。
  * 
  * @author naotake
  */
