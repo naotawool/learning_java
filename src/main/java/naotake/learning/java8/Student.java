@@ -1,5 +1,7 @@
 package naotake.learning.java8;
 
+import com.google.common.base.Objects;
+
 public class Student {
 
     private String name;
@@ -30,5 +32,10 @@ public class Student {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public String toString() {
+        return Objects.toStringHelper(this).add("Name", name).add("Pref", pref).add("Score", score)
+                .toString();
     }
 }

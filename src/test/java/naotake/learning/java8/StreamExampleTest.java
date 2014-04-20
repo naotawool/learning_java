@@ -15,8 +15,6 @@ import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
-import com.google.common.collect.Lists;
-
 /**
  * {@link StreamExample}に対するテストクラス。
  * 
@@ -25,7 +23,7 @@ import com.google.common.collect.Lists;
 @RunWith(Enclosed.class)
 public class StreamExampleTest {
 
-    private static List<Student> students = newStudents();
+    private static List<Student> students;
 
     public static class Java8以前の場合 {
 
@@ -38,6 +36,7 @@ public class StreamExampleTest {
         public void setUp() {
             testee = new StreamExample();
             testee.mode = Mode.JAVA_7;
+            students = newStudents();
         }
 
         @Test
@@ -61,7 +60,7 @@ public class StreamExampleTest {
         @Test
         public void 加工された生徒名の一覧を取得できること() {
             String actual = testee.mapToNames(students);
-            assertThat(actual, is("[Debit]:[Annna]:[Lucy]:[Jack]"));
+            assertThat(actual, is("[Debit]:[Anna]:[Lucy]:[Jack]"));
         }
 
         @Test
@@ -128,6 +127,7 @@ public class StreamExampleTest {
         public void setUp() {
             testee = new StreamExample();
             testee.mode = Mode.JAVA_8;
+            students = newStudents();
         }
 
         @Test
@@ -151,7 +151,7 @@ public class StreamExampleTest {
         @Test
         public void stream_で加工された生徒名の一覧を取得できること() {
             String actual = testee.mapToNames(students);
-            assertThat(actual, is("[Debit]:[Annna]:[Lucy]:[Jack]"));
+            assertThat(actual, is("[Debit]:[Anna]:[Lucy]:[Jack]"));
         }
 
         @Test
@@ -208,20 +208,6 @@ public class StreamExampleTest {
     }
 
     private static List<Student> newStudents() {
-        List<Student> students = Lists.newArrayListWithCapacity(3);
-        students.add(newStudent("Debit", "2_東京都", 120));
-        students.add(newStudent("Annna", "3_大阪府", 90));
-        students.add(newStudent("Lucy", "2_東京都", 181));
-        students.add(newStudent("Jack", "1_北海道", 310));
-
-        return students;
-    }
-
-    private static Student newStudent(String name, String pref, int score) {
-        Student student = new Student();
-        student.setName(name);
-        student.setPref(pref);
-        student.setScore(score);
-        return student;
+        return StudentFixture.newStudents();
     }
 }

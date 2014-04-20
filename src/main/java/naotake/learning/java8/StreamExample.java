@@ -12,9 +12,15 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.google.common.base.Joiner;
 
+/**
+ * Java8から導入された{@link Stream}を使ったサンプルクラス。
+ * 
+ * @author naotake
+ */
 public class StreamExample {
 
     public Mode mode = Mode.JAVA_7;
