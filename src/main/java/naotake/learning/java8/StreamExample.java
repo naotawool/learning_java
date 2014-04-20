@@ -287,6 +287,11 @@ public class StreamExample {
                 Collectors.groupingBy(s -> s.getPref(), Collectors.counting()));
     }
 
+    public String get2MultipleSeries(int limit) {
+        Stream<Integer> fibonacci = Stream.iterate(2, i -> i + i);
+        return fibonacci.limit(limit).map(i -> String.valueOf(i)).collect(Collectors.joining(","));
+    }
+
     public enum Mode {
         JAVA_8, JAVA_7;
     }

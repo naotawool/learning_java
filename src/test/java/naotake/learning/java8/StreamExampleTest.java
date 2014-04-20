@@ -205,6 +205,15 @@ public class StreamExampleTest {
             assertThat(actuals.get("2_東京都"), is(2L));
             assertThat(actuals.get("3_大阪府"), is(1L));
         }
+
+        @Test
+        public void 指定した数の2の倍数を取得できること() {
+            String actual = testee.get2MultipleSeries(5);
+            assertThat(actual, is("2,4,8,16,32"));
+
+            actual = testee.get2MultipleSeries(10);
+            assertThat(actual, is("2,4,8,16,32,64,128,256,512,1024"));
+        }
     }
 
     private static List<Student> newStudents() {
