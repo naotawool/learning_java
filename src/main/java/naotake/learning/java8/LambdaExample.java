@@ -1,6 +1,4 @@
-package naotake.learning;
-
-import naotake.learning.LambdaExample.Hello;
+package naotake.learning.java8;
 
 public class LambdaExample {
 

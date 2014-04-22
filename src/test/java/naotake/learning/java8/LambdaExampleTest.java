@@ -1,7 +1,7 @@
-package naotake.learning;
+package naotake.learning.java8;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
