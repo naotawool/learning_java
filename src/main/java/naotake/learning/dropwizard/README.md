@@ -1,11 +1,15 @@
-# What is [DropWizard](https://dropwizard.github.io/dropwizard/ "Dropwizard")??
+# What is [Dropwizard](https://dropwizard.github.io/dropwizard/ "Dropwizard")??
 
-# How to run Application
+# How to Running The Application
 
-## 1. packaging
+* packaging
 
-` mvn package`
+        mvn package
 
-## 2. run
+* made jar
 
-` java -jar target\learning-java-1.0-SNAPSHOT-shaded.jar server hello-world.yml`
+       `target/learning-java-1.0-SNAPSHOT-shaded.jar`
+
+* run
+
+        java -jar target\learning-java-1.0-SNAPSHOT-shaded.jar server hello-world.yml
