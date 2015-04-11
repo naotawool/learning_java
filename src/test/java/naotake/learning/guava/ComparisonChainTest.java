@@ -1,8 +1,7 @@
 package naotake.learning.guava;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.extention.matcher.GreaterThan.greaterThanZero;
-import static org.junit.extention.matcher.LessThan.lessThanZero;
 
 import org.junit.Test;
 
@@ -20,8 +19,8 @@ public class ComparisonChainTest {
         Person p1 = newPerson("Test1", 26, true);
         Person p2 = newPerson("Test2", 26, true);
 
-        assertThat(p1.compareTo(p2), lessThanZero());
-        assertThat(p2.compareTo(p1), greaterThanZero());
+        assertThat(p1.compareTo(p2), is(-1));
+        assertThat(p2.compareTo(p1), is(1));
     }
 
     @Test
@@ -29,8 +28,8 @@ public class ComparisonChainTest {
         Person p1 = newPerson("Test", 20, true);
         Person p2 = newPerson("Test", 30, true);
 
-        assertThat(p1.compareTo(p2), greaterThanZero());
-        assertThat(p2.compareTo(p1), lessThanZero());
+        assertThat(p1.compareTo(p2), is(1));
+        assertThat(p2.compareTo(p1), is(-1));
     }
 
     @Test
@@ -38,8 +37,16 @@ public class ComparisonChainTest {
         Person p1 = newPerson("Test", 55, true);
         Person p2 = newPerson("Test", 55, false);
 
-        assertThat(p1.compareTo(p2), lessThanZero());
-        assertThat(p2.compareTo(p1), greaterThanZero());
+        assertThat(p1.compareTo(p2), is(-1));
+        assertThat(p2.compareTo(p1), is(1));
+    }
+
+    @Test
+    public void 全ての値が等しい場合_0_が返されること() {
+        Person p1 = newPerson("Test", 55, true);
+        Person p2 = newPerson("Test", 55, true);
+
+        assertThat(p1.compareTo(p2), is(0));
     }
 
     private static Person newPerson(String name, int age, boolean isMale) {
