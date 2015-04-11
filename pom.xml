@@ -60,12 +60,14 @@
             <version>${org.easymock.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- 
         <dependency>
             <groupId>org.junit.extention</groupId>
             <artifactId>junit-extention</artifactId>
             <version>${org.junit.extention}</version>
             <scope>test</scope>
         </dependency>
+         -->
     </dependencies>
     <build>
         <finalName>learning-java</finalName>
