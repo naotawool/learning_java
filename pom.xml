@@ -18,6 +18,7 @@
         <org.easymock.version>3.1</org.easymock.version>
         <slf4j.version>1.6.1</slf4j.version>
         <org.junit.extention>1.0</org.junit.extention>
+        <dropwizard.version>0.7.0</dropwizard.version>
     </properties>
     <dependencies>
         <dependency>
@@ -29,6 +30,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${com.google.guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+            <version>${dropwizard.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -54,12 +60,14 @@
             <version>${org.easymock.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- 
         <dependency>
             <groupId>org.junit.extention</groupId>
             <artifactId>junit-extention</artifactId>
             <version>${org.junit.extention}</version>
             <scope>test</scope>
         </dependency>
+         -->
     </dependencies>
     <build>
         <finalName>learning-java</finalName>
@@ -83,6 +91,54 @@
                 <configuration>
                     <source>${project.build.jdk.version}</source>
                     <target>${project.build.jdk.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.6</version>
+                <configuration>
+                    <createDependencyReducedPom>true</createDependencyReducedPom>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>naotake.learning.dropwizard.HelloWorldApplication</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
