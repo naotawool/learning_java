@@ -15,8 +15,6 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
-import com.sun.istack.internal.NotNull;
-
 /**
  * Java8で新たに追加された{@link Optional}に対するテストクラス。
  * 
@@ -234,14 +232,6 @@ public class OptionalTest {
 
             testee.orElseThrow(() -> new NullPointerException("Non Object!!"));
             fail("ここまで来ない");
-        }
-
-        @Test
-        public void test() {
-            @NotNull
-            Object obj = null;
-
-            System.out.println(obj);
         }
     }
 }
