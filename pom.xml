@@ -60,14 +60,6 @@
             <version>${org.easymock.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- 
-        <dependency>
-            <groupId>org.junit.extention</groupId>
-            <artifactId>junit-extention</artifactId>
-            <version>${org.junit.extention}</version>
-            <scope>test</scope>
-        </dependency>
-         -->
     </dependencies>
     <build>
         <finalName>learning-java</finalName>
@@ -83,7 +75,30 @@
                 <directory>src/test/resources</directory>
             </testResource>
         </testResources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <format>xml</format>
+                        <maxmem>256m</maxmem>
+                        <!-- aggregated reports for multi-module projects -->
+                        <aggregate>true</aggregate>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <repoToken>YvblWi9P0IibktERqF7w0nMK3UTERg3Q7</repoToken>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
