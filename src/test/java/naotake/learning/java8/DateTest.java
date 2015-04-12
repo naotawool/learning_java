@@ -12,6 +12,7 @@ import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
@@ -109,6 +110,8 @@ public class DateTest {
 
         // 検証用に変換(--> Calender)
         Calendar oldCal = DateUtils.toCalendar(oldDate);
+        TimeZone asiaZone = TimeZone.getTimeZone("Asia/Tokyo");
+        oldCal.setTimeZone(asiaZone);
         assertThat(date.getYear(), is(oldCal.get(Calendar.YEAR)));
         assertThat(date.getMonthValue(), is(oldCal.get(Calendar.MONTH) + 1));
         assertThat(date.getDayOfMonth(), is(oldCal.get(Calendar.DAY_OF_MONTH)));
@@ -126,6 +129,8 @@ public class DateTest {
 
         // 検証用に変換(--> Calender)
         Calendar oldCal = DateUtils.toCalendar(oldDate);
+        TimeZone asiaZone = TimeZone.getTimeZone("Asia/Tokyo");
+        oldCal.setTimeZone(asiaZone);
         assertThat(oldCal.get(Calendar.YEAR), is(dateTime.getYear()));
         assertThat(oldCal.get(Calendar.MONTH) + 1, is(dateTime.getMonthValue()));
         assertThat(oldCal.get(Calendar.DAY_OF_MONTH), is(dateTime.getDayOfMonth()));
