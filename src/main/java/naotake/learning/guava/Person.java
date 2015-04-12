@@ -75,8 +75,19 @@ public class Person implements Comparable<Person> {
 
     private enum Gender {
         /** 男性 */
-        MALE,
+        MALE("男性"),
         /** 女性 */
-        FEMALE
+        FEMALE("女性");
+
+        private final String label;
+
+        private Gender(final String label) {
+            this.label = label;
+        }
+
+        @Override
+        public String toString() {
+            return label;
+        }
     }
 }
