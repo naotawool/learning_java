@@ -1,28 +1,38 @@
 package naotake.learning.assertj;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import naotake.learning.java8.Student;
 
-import org.assertj.core.api.AssertDelegateTarget;
+import org.assertj.core.api.AbstractAssert;
+import org.hamcrest.core.Is;
+import org.junit.Assert;
 
-class StudentAssert implements AssertDelegateTarget {
+class StudentAssert extends AbstractAssert<StudentAssert, Student> {
 
-    private final Student testee;
-
-    StudentAssert(final Student testee) {
-        this.testee = testee;
+    protected StudentAssert(Student actual) {
+        super(actual, StudentAssert.class);
     }
 
-    void isEqualName(String expect) {
-        assertThat(testee.getName(), is(expect));
+    public static StudentAssert assertThat(Student actual) {
+        return new StudentAssert(actual);
     }
 
-    void isEqualPref(String expect) {
-        assertThat(testee.getPref(), is(expect));
+    public StudentAssert isName(String expect) {
+        Assert.assertThat(actual.getName(), Is.is(expect));
+        return this;
     }
 
-    void isEqualScore(int expect) {
-        assertThat(testee.getScore(), is(expect));
+    public StudentAssert isPref(String expect) {
+        Assert.assertThat(actual.getPref(), Is.is(expect));
+        return this;
+    }
+
+    public StudentAssert isScore(int expect) {
+        Assert.assertThat(actual.getScore(), Is.is(expect));
+        return this;
+    }
+
+    public StudentAssert isToString(String expect) {
+        Assert.assertThat(actual.toString(), Is.is(expect));
+        return this;
     }
 }
