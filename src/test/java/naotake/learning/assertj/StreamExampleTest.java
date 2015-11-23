@@ -2,15 +2,21 @@ package naotake.learning.assertj;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
+import static org.assertj.core.api.Assertions.tuple;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import naotake.learning.java8.StreamExample;
 import naotake.learning.java8.StreamExample.Mode;
 import naotake.learning.java8.Student;
 import naotake.learning.java8.StudentFixture;
 
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -67,8 +73,7 @@ public class StreamExampleTest {
         @Test
         public void スコアの一覧を昇順で取得できること() {
             List<Integer> actuals = testee.sortedScores(students);
-            assertThat(actuals).hasSize(4);
-            assertThat(actuals).containsSequence(90, 120, 181, 310);
+            assertThat(actuals).hasSize(4).containsSequence(90, 120, 181, 310);
         }
 
         @Test
@@ -104,8 +109,7 @@ public class StreamExampleTest {
         @Test
         public void 指定したスコアを上回る生徒の名前の一覧を取得できること() {
             List<String> actuals = testee.findNameByOverScore(students, 100);
-            assertThat(actuals).hasSize(3);
-            assertThat(actuals).containsSequence("Debit", "Jack", "Lucy");
+            assertThat(actuals).hasSize(3).containsSequence("Debit", "Jack", "Lucy");
         }
 
         @Test
@@ -212,6 +216,60 @@ public class StreamExampleTest {
 
             actual = testee.get2MultipleSeries(10);
             assertThat(actual).isEqualTo("2,4,8,16,32,64,128,256,512,1024");
+        }
+
+        @Test
+        public void SoftAssertionsを使って生徒の情報を検証できること() {
+            List<String> actuals = testee.findNameByOverScore(students, 100);
+            assertThat(actuals).hasSize(3);
+            assertThat(actuals).containsSequence("Debit", "Jack", "Lucy");
+
+            SoftAssertions softly = new SoftAssertions();
+            softly.assertThat(actuals).as("Actual Students size").hasSize(13);
+            softly.assertThat(actuals).as("Actual Students name")
+                    .containsSequence("Debit", "Jack", "Lucy1");
+
+            softly.assertAll();
+        }
+    }
+
+    public static class AssertJを使ったテスト {
+
+        /**
+         * 事前処理。
+         */
+        @Before
+        public void setUp() {
+            students = newStudents();
+        }
+
+        @Test
+        public void extracting_を使って生徒の名前を検証できること() {
+
+            List<String> studentNames = students.stream().map(s -> s.getName())
+                    .collect(Collectors.toList());
+            assertThat(studentNames, hasSize(4));
+            assertThat(studentNames.get(0), is("Debit"));
+            assertThat(studentNames.get(1), is("Anna"));
+            assertThat(studentNames.get(2), is("Lucy"));
+            assertThat(studentNames.get(3), is("Jack"));
+
+            // JUnit4
+            assertThat(students, hasSize(4));
+            assertThat(students.get(0).getName(), is("Debit"));
+            assertThat(students.get(1).getName(), is("Anna"));
+            assertThat(students.get(2).getName(), is("Lucy"));
+            assertThat(students.get(3).getName(), is("Jack"));
+
+            // AssertJ
+            assertThat(students).extracting(Student::getName).hasSize(4)
+                    .containsSequence("Debit", "Anna", "Lucy", "Jack");
+
+            assertThat(students)
+                    .extracting(Student::getName, Student::getScore)
+                    .hasSize(4)
+                    .containsSequence(tuple("Debit", 120), tuple("Anna", 90), tuple("Lucy", 181),
+                            tuple("Jack", 310));
         }
     }
 
