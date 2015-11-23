@@ -116,7 +116,7 @@ public class StreamExampleTest {
         public void 都道府県別の生徒数を取得できること() {
             Map<String, Long> actuals = testee.countStudentByPref(students);
             assertThat(actuals).containsOnly(entry("1_北海道", 1L), entry("2_東京都", 2L),
-                    entry("3_大阪府", 1L));
+                                             entry("3_大阪府", 1L));
         }
     }
 
@@ -206,7 +206,7 @@ public class StreamExampleTest {
         public void stream_を使って都道府県別の生徒数を取得できること() {
             Map<String, Long> actuals = testee.countStudentByPref(students);
             assertThat(actuals).containsOnly(entry("1_北海道", 1L), entry("2_東京都", 2L),
-                    entry("3_大阪府", 1L));
+                                             entry("3_大阪府", 1L));
         }
 
         @Test
@@ -225,9 +225,9 @@ public class StreamExampleTest {
             assertThat(actuals).containsSequence("Debit", "Jack", "Lucy");
 
             SoftAssertions softly = new SoftAssertions();
-            softly.assertThat(actuals).as("Actual Students size").hasSize(13);
+            softly.assertThat(actuals).as("Actual Students size").hasSize(3);
             softly.assertThat(actuals).as("Actual Students name")
-                    .containsSequence("Debit", "Jack", "Lucy1");
+                  .containsSequence("Debit", "Jack", "Lucy");
 
             softly.assertAll();
         }
@@ -247,7 +247,7 @@ public class StreamExampleTest {
         public void extracting_を使って生徒の名前を検証できること() {
 
             List<String> studentNames = students.stream().map(s -> s.getName())
-                    .collect(Collectors.toList());
+                                                .collect(Collectors.toList());
             assertThat(studentNames, hasSize(4));
             assertThat(studentNames.get(0), is("Debit"));
             assertThat(studentNames.get(1), is("Anna"));
@@ -263,13 +263,13 @@ public class StreamExampleTest {
 
             // AssertJ
             assertThat(students).extracting(Student::getName).hasSize(4)
-                    .containsSequence("Debit", "Anna", "Lucy", "Jack");
+                                .containsSequence("Debit", "Anna", "Lucy", "Jack");
 
             assertThat(students)
-                    .extracting(Student::getName, Student::getScore)
-                    .hasSize(4)
-                    .containsSequence(tuple("Debit", 120), tuple("Anna", 90), tuple("Lucy", 181),
-                            tuple("Jack", 310));
+                                .extracting(Student::getName, Student::getScore)
+                                .hasSize(4)
+                                .containsSequence(tuple("Debit", 120), tuple("Anna", 90), tuple("Lucy", 181),
+                                                  tuple("Jack", 310));
         }
     }
 
