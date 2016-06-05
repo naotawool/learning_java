@@ -34,8 +34,12 @@ public class Student {
         this.score = score;
     }
 
+    public String greeting() {
+        return String.format("I'm %s.", name);
+    }
+
     public String toString() {
         return Objects.toStringHelper(this).add("Name", name).add("Pref", pref).add("Score", score)
-                .toString();
+                      .toString();
     }
 }

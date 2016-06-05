@@ -1,6 +1,6 @@
 package naotake.learning.assertj;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static naotake.learning.assertj.StudentAssert.assertThat;
 import naotake.learning.java8.Student;
 
 import org.junit.Test;
@@ -19,6 +19,6 @@ public class StudentTest {
         testee.setPref("Tokyo");
         testee.setScore(82);
 
-        assertThat(testee.toString()).isEqualTo("Student{Name=Naotake, Pref=Tokyo, Score=82}");
+        assertThat(testee).isToString("Student{Name=Naotake, Pref=Tokyo, Score=82}");
     }
 }
