@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Clone') {
       steps {
-        git(url: 'https://github.com/naotawool/learning_java.git', branch: '*/develop', poll: true)
+        git(url: 'https://github.com/naotawool/learning_java.git', branch: 'feature/pipeline', poll: true)
       }
     }
     stage('Build') {
