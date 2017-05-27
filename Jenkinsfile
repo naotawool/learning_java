@@ -11,5 +11,23 @@ pipeline {
         bat 'mvn build'
       }
     }
+    stage('Test Results') {
+      steps {
+        parallel(
+          "Test Results": {
+            junit(testResults: 'build/test-results/test/TEST-*.xml', healthScaleFactor: 1)
+            
+          },
+          "Coverage Results": {
+            jacoco(execPattern: '**/**.exec', classPattern: '**/classes', sourcePattern: '**/src/main/java')
+            
+          },
+          "FindBugs Results": {
+            findbugs(pattern: 'build/findbugsReports/main.xml')
+            
+          }
+        )
+      }
+    }
   }
 }
