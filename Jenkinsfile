@@ -9,6 +9,7 @@ node {
      mvnHome = tool 'M3'
    }
    stage('Build') {
+     bat "set MS_HOME="
      bat "${mvnHome}\\bin\\mvn.bat clean test"
    }
    stage('Test Results') {
