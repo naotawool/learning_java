@@ -10,6 +10,8 @@ node {
    }
    stage('Build') {
      bat "set MS_HOME="
+     bat "echo %JAVA_HOME%"
+     bat "echo %PATH%"
      bat "${mvnHome}\\bin\\mvn.bat clean test"
    }
    stage('Test Results') {
