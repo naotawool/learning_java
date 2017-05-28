@@ -1,7 +1,6 @@
-def mvnHome = tool 'M3'
-
 pipeline {
   agent any
+  def mvnHome = tool 'M3'
   stages {
     stage('Clone') {
       steps {
