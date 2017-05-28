@@ -9,7 +9,7 @@ node {
      mvnHome = tool 'M3'
    }
    stage('Build') {
-     bat(/"${mvnHome}\bin\mvn" test/)
+     bat "${mvnHome}\\bin\\mvn.bat clean test"
    }
    stage('Test Results') {
      steps {
