@@ -1,3 +1,5 @@
+def mvnHome = tool 'M3'
+
 pipeline {
   agent any
   stages {
@@ -8,7 +10,6 @@ pipeline {
     }
     stage('Build') {
       steps {
-        def mvnHome = tool 'M3'
         sh "${mvnHome}/bin/mvn test"
       }
     }
